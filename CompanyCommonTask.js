@@ -27,12 +27,13 @@ var eventHelper = (function () {
 
 var ajaxHelper = (function () {
     // 根据传入的url和key使用Ajax获取单个值并返回
-    var getSingleValue = function (url, key) {
+    var getSingleValue = function (url, key, info) {
         var result = '';
         $.ajax({
             type: "post",
             url: url,
             async: false, //是否异步
+            data: info === undefined ? null : info,
             success: function (data) {
                 var resultObj = $.parseJSON(data);
                 result = resultObj.Rows[0][key];
