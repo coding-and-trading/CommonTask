@@ -102,3 +102,34 @@ var ligerHelper = (function () {
         getSingleFilter: getSingleFilter
     };
 })();
+
+// 与财务相关的辅助方法
+var financialHelper = (function () {
+    var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"],
+        chnUnitSection = ["","万","亿","万亿","亿亿"],
+        chnUnitChar = ["","十","百","千"],
+        SectionToChinese;
+
+    SectionToChinese = function (section){
+  var strIns = '', chnStr = '';
+  var unitPos = 0;
+  var zero = true;
+  while(section > 0){
+    var v = section % 10;
+    if(v === 0){
+      if(!zero){
+        zero = true;
+        chnStr = chnNumChar[v] + chnStr;
+      }
+    }else{
+      zero = false;
+      strIns = chnNumChar[v];
+      strIns += chnUnitChar[unitPos];
+      chnStr = strIns + chnStr;
+    }
+    unitPos++;
+    section = Math.floor(section / 10);
+  }
+  return chnStr;
+}
+})();
