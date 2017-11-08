@@ -187,3 +187,24 @@ var financialHelper = (function () {
         convertCurrency: convertCurrency
     }
 })();
+
+// 验证相关的方法
+var strategies = {
+    isNumber: function (value) {
+       return /^[0-9\.]+$/.test(value); 
+    }
+};
+
+// assert
+var testHelper = {
+    assert: function (value, msg) {
+        if (!value) {
+            throw(msg || (value + " does not equal true"));
+        }
+    },
+    assertEqual: function (val1, val2, msg) {
+        if (val1 !== val2) {
+            throw(msg || (val1 + " does not equal " + val2));
+        }
+    }
+};
