@@ -42,8 +42,25 @@ var ajaxHelper = (function () {
         return result;
     };
 
+    // 根据传入的url和key使用Ajax获取值并填充到知道id
+    var ajaxInsertSingleValue = function (url, key, tag, info, callback) {
+        $.ajax({
+            type: "post",
+            url: url,
+            data: info === undefined ? null : info,
+            success: function (data) {
+                var resultObj = $.parseJSON(data);
+                $("#" + tag).text(resultObj.Rows[0][key]);
+                if (callback) {
+                    callback(resultObj.Rows[0][key]);
+                }
+            }
+        });
+    };
+
     return {
-        getSingleValue: getSingleValue
+        getSingleValue: getSingleValue,
+        ajaxInsertSingleValue: ajaxInsertSingleValue
     };
 })();
 
@@ -105,9 +122,9 @@ var ligerHelper = (function () {
 
 // 与财务相关的辅助方法
 var financialHelper = (function () {
-    var  convertCurrency;
+    var convertCurrency;
 
-    convertCurrency = function(money) {
+    convertCurrency = function (money) {
         var cnNums = new Array('零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'), //汉字的数字
             cnIntRadice = new Array('', '拾', '佰', '仟'),        //基本单位
             cnIntUnits = new Array('', '万', '亿', '兆'),         //对应整数部分扩展单位
@@ -120,67 +137,67 @@ var financialHelper = (function () {
             chineseStr = '',    //输出的中文金额字符串
             parts;              //分离金额后用的数组，预定义
 
-         if (money == '') { return ''; }
-         money = parseFloat(money);
-         if (money >= maxNum) {
-             //超出最大处理数字
-             return '';
-         }
-         if (money == 0) {
-             chineseStr = cnNums[0] + cnIntLast + cnInteger;
-             return chineseStr;
-         }
-         //转换为字符串
-         money = money.toString();
-         if (money.indexOf('.') == -1) {
-             integerNum = money;
-             decimalNum = '';
-         } else {
-             parts = money.split('.');
-             integerNum = parts[0];
-             decimalNum = parts[1].substr(0, 4);
-         }
-         //获取整型部分转换
-         if (parseInt(integerNum, 10) > 0) {
-             var zeroCount = 0;
-             var IntLen = integerNum.length;
-             for (var i = 0; i < IntLen; i++) {
-                 var n = integerNum.substr(i, 1);
-                 var p = IntLen - i - 1;
-                 var q = p / 4;
-                 var m = p % 4;
-                 if (n == '0') {
-                     zeroCount++;
-                 } else {
-                     if (zeroCount > 0) {
-                         chineseStr += cnNums[0];
-                     }
-                     //归零
-                     zeroCount = 0;
-                     chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
-                 }
-                 if (m == 0 && zeroCount < 4) {
-                     chineseStr += cnIntUnits[q];
-                 }
-             }
-             chineseStr += cnIntLast;
-         }
-         //小数部分
-         if (decimalNum != '') {
-             var decLen = decimalNum.length;
-             for (var i = 0; i < decLen; i++) {
-                 var n = decimalNum.substr(i, 1);
-                 if (n != '0') {
-                     chineseStr += cnNums[Number(n)] + cnDecUnits[i];
-                 }
-             }
-         }
-         if (chineseStr == '') {
-             chineseStr += cnNums[0] + cnIntLast + cnInteger;
-         } else if (decimalNum == '') {
-             chineseStr += cnInteger;
-         }
-         return chineseStr;
+        if (money == '') { return ''; }
+        money = parseFloat(money);
+        if (money >= maxNum) {
+            //超出最大处理数字
+            return '';
+        }
+        if (money == 0) {
+            chineseStr = cnNums[0] + cnIntLast + cnInteger;
+            return chineseStr;
+        }
+        //转换为字符串
+        money = money.toString();
+        if (money.indexOf('.') == -1) {
+            integerNum = money;
+            decimalNum = '';
+        } else {
+            parts = money.split('.');
+            integerNum = parts[0];
+            decimalNum = parts[1].substr(0, 4);
+        }
+        //获取整型部分转换
+        if (parseInt(integerNum, 10) > 0) {
+            var zeroCount = 0;
+            var IntLen = integerNum.length;
+            for (var i = 0; i < IntLen; i++) {
+                var n = integerNum.substr(i, 1);
+                var p = IntLen - i - 1;
+                var q = p / 4;
+                var m = p % 4;
+                if (n == '0') {
+                    zeroCount++;
+                } else {
+                    if (zeroCount > 0) {
+                        chineseStr += cnNums[0];
+                    }
+                    //归零
+                    zeroCount = 0;
+                    chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
+                }
+                if (m == 0 && zeroCount < 4) {
+                    chineseStr += cnIntUnits[q];
+                }
+            }
+            chineseStr += cnIntLast;
+        }
+        //小数部分
+        if (decimalNum != '') {
+            var decLen = decimalNum.length;
+            for (var i = 0; i < decLen; i++) {
+                var n = decimalNum.substr(i, 1);
+                if (n != '0') {
+                    chineseStr += cnNums[Number(n)] + cnDecUnits[i];
+                }
+            }
+        }
+        if (chineseStr == '') {
+            chineseStr += cnNums[0] + cnIntLast + cnInteger;
+        } else if (decimalNum == '') {
+            chineseStr += cnInteger;
+        }
+        return chineseStr;
     }
 
     return {
