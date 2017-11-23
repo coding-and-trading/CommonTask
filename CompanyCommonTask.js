@@ -234,3 +234,37 @@ var mathHelper = {
         }).toUpperCase();
     }
 };
+
+// 处理涉及IO的操作
+var ioHelper = (function() {
+    var excelExport;
+     // 导出Excel
+     excelExport = function(rule, url, spName) {
+         var form = $("<form>"); //定义一个form表单
+         form.attr("style", "display:none");
+         form.attr("id", "form1");
+         form.attr("target", "");
+         form.attr("method", "post");
+         form.attr("action", url);
+
+         var input1 = $("<input>");
+         input1.attr("type", "hidden");
+         input1.attr("name", "view");
+         input1.attr("value", spName);
+
+         var input2 = $("<input>");
+         input2.attr("type", "hidden");
+         input2.attr("name", "where");
+         input2.attr("value", JSON2.stringify(rule));
+
+         $("body").append(form); //将表单放置在web中
+         form.append(input1);
+         form.append(input2);
+
+         form.submit(); //表单提交 
+     }
+
+     return {
+        excelExport: excelExport
+     };
+}) ();
