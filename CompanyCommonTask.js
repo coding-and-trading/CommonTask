@@ -65,8 +65,9 @@ var ajaxHelper = (function () {
 })();
 
 var dateHelper = (function () {
+    var getDateObj, getDateFromString, getDateTime, getCurrentDate;
     // 根据传入的dateTime String(例如: 2017/08/31 11:59:59)返回date(例如: 2017-08-31)
-    var getDateObj = function (dateStr) {
+    getDateObj = function (dateStr) {
         if (null == dateStr || undefined == dateStr) {
             return null;
         }
@@ -77,7 +78,7 @@ var dateHelper = (function () {
         return new Date(dateStr);
     };
 
-    var getDateFromString = function (dateStr) {
+    getDateFromString = function (dateStr) {
         var date = getDateObj(dateStr);
         return date ? null: date.getFullYear() + '-' + (date.getMonth() + 1) 
                                     + '-' + date.getDate();
@@ -85,7 +86,7 @@ var dateHelper = (function () {
 
 
     // 根据传入的dateTime String(例如: 2017/08/31 11:59:59)返回date(例如: 2017-08-31 11:59:59)
-    var getDateTime = function (dateStr) {
+    getDateTime = function (dateStr) {
         var date = getDateObj(dateStr);
         
         return date ? null: date.getFullYear() + '-' 
@@ -97,9 +98,17 @@ var dateHelper = (function () {
 
     };
 
+     // 返回当前时间
+     getCurrentDate = function () {
+        var date1 = new Date();
+        return date1.getFullYear() + '-' + date1.getMonth() + '-' + date1.getDay() + ' '
+                    + date1.getHours() + ':' + date1.getMinutes() + ':' + date1.getSeconds();
+     };
+
     return {
         getDateFromString: getDateFromString,
-        getDateTime: getDateTime
+        getDateTime: getDateTime,
+        getCurrentDate: getCurrentDate
     };
 })();
 
