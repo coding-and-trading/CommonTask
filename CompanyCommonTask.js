@@ -50,6 +50,7 @@ var ajaxHelper = (function () {
             data: info === undefined ? null : info,
             success: function (data) {
                 var resultObj = $.parseJSON(data);
+                console.log(resultObj.Rows[0][key]);
                 $("#" + tag).text(resultObj.Rows[0][key]);
                 if (callback) {
                     callback(resultObj.Rows[0][key]);
@@ -101,7 +102,7 @@ var dateHelper = (function () {
      // 返回当前时间
      getCurrentDate = function () {
         var date1 = new Date();
-        return date1.getFullYear() + '-' + date1.getMonth() + '-' + date1.getDay() + ' '
+        return date1.getFullYear() + '-' + (date1.getMonth()+1) + '-' + date1.getDate() + ' '
                     + date1.getHours() + ':' + date1.getMinutes() + ':' + date1.getSeconds();
      };
 
