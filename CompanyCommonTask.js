@@ -1,12 +1,17 @@
 /*
  * Author: 
  * CreateAt: 2017-10-23
- * LastModify: 
+ * LastModify: 2017-12-11 
  * Goal: 公司常用功能封装
  * 1. eventHelper, 事件辅助方法
  * 2. ajaxHelper, Ajax辅助方法
  * 3. dateHelper, 时间辅助方法
  * 4. ligerHelper, ligerUI辅助方法
+ * 5. financialHelper, 与财务相关的辅助方法
+ * 6. strategies, 验证相关的方法
+ * 7. testHelper, 测试相关
+ * 8. mathHelper, 数学运算
+ * 9. ioHelper, 导入和导出 
  */
 
 var eventHelper = (function () {
