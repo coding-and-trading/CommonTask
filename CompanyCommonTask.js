@@ -50,7 +50,6 @@ var ajaxHelper = (function () {
             data: info === undefined ? null : info,
             success: function (data) {
                 var resultObj = $.parseJSON(data);
-                console.log(resultObj.Rows[0][key]);
                 $("#" + tag).text(resultObj.Rows[0][key]);
                 if (callback) {
                     callback(resultObj.Rows[0][key]);
