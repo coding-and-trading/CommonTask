@@ -148,7 +148,8 @@ var ligerHelper = (function () {
     };
 
     return {
-        getSingleFilter: getSingleFilter
+        getSingleFilter: getSingleFilter,
+        getMultiFilter: getMultiFilter
     };
 })();
 
