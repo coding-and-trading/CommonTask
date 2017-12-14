@@ -114,8 +114,9 @@ var dateHelper = (function () {
 
 // 与ligerUI相关的辅助方法
 var ligerHelper = (function () {
+    var getSingleFilter, getMultiFilter;
     // 返回ligerUI的单个条件限制
-    var getSingleFilter = function (key, value, op) {
+    getSingleFilter = function (key, value, op) {
         return {
             op: 'AND',
             rules: [
@@ -124,10 +125,28 @@ var ligerHelper = (function () {
         };
     };
 
+    // 返回ligerUI的多个条件限制
+    // getMultiFilter([{key:"", value:"", op:""}...])
+    getMultiFilter = function(info) {
+        var rule = [];
+        for (var i=0; i<info.length; i++) {
+            rule.push({ 
+                field: info[i].key, 
+                value: info[i].value,
+                op: info[0].op });
+        }
+        
+        return {
+            op: 'AND',
+            rules: rule
+        };
+    };
+
     return {
         getSingleFilter: getSingleFilter
     };
 })();
+
 
 // 与财务相关的辅助方法
 var financialHelper = (function () {
