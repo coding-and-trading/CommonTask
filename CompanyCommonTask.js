@@ -12,6 +12,7 @@
  * 7. testHelper, 测试相关
  * 8. mathHelper, 数学运算
  * 9. ioHelper, 导入和导出 
+ * 10. image, 与image相关的常用操作
  */
 
 var eventHelper = (function () {
@@ -302,3 +303,21 @@ var ioHelper = (function() {
         excelExport: excelExport
      };
 }) ();
+
+var image = (function() {
+    var imageView;
+    // 弹出图片浏览框
+    imageView = function(obj) {
+        var url = $(obj).attr("url");
+        $.ligerDialog.open({ 
+            title: "查看单据图片", 
+            target: "<div><img src='" + url + "' style='width:450px;height:450px;'/></div>", 
+            height: 500, 
+            width: 500 
+        });
+    }
+
+    return {
+        imageView: imageView
+    }
+})();
