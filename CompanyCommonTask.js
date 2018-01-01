@@ -13,6 +13,7 @@
  * 8. mathHelper, 数学运算
  * 9. ioHelper, 导入和导出 
  * 10. image, 与image相关的常用操作
+ * 11. pattern, 与pattern有相关的操作
  */
 
 var eventHelper = (function () {
