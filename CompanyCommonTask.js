@@ -14,6 +14,7 @@
  * 9. ioHelper, 导入和导出 
  * 10. image, 与image相关的常用操作
  * 11. pattern, 与pattern有相关的操作
+ * 12. aHelper, 与数组相关的辅助方法
  */
 
 var eventHelper = (function () {
@@ -321,4 +322,8 @@ var image = (function() {
     return {
         imageView: imageView
     }
+})();
+
+var aHelper = (function() {
+
 })();

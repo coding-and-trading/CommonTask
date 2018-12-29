@@ -1,0 +1,22 @@
+<!--头部 开始-->
+<div id="caihuatop" data-bind="template: { name: 'frame-html', data: $parent.page().headData }"></div>
+<!--头部 结束-->
+<!--主要内容 开始-->
+<div id="container" class="cart" ecarddg="0" cartalwaysdg="0" t="0">
+    <div class="shortcut">
+        <a href="#/main">首页</a>&gt;
+        <span>
+            <a href="#/"></a>&gt;
+        </span>
+    </div>
+
+    <!-- 温馨提示 开始-->
+    <div data-bind="template:{name:'ModularReminder-html',data:ModularReminder, afterRender:ModularReminder.afterRender }">
+    </div>
+    <!-- 温馨提示 结束-->
+
+    <!-- 主要内容 开始-->
+    <div class="main">
+    </div>
+    <!-- 主要内容 结束-->
+</div>

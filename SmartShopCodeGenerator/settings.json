@@ -1,0 +1,5 @@
+{
+    "moduleName": "LossBill",   // 模块名
+    "form": true,       // 是否需要form
+    "grid": true        // 是否需要grid 
+}
